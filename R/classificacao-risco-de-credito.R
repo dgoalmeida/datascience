@@ -17,22 +17,38 @@
 # https://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data)
 ################################################################################
 
-# Coletando os dados
-
 setwd('../../../../data/')
 
-# obtendo dataset e adicionando suas labels 
-df = as.data.frame(read.csv('German Credit Card UCI dataset.csv', stringsAsFactors = TRUE, header = FALSE ))
+# realizar atividade de engenharia de atributos
+# atividade de quantizar algumas variaveis (converter de numérica para categorica)
+# nesse exemplo será alterado as variáveis Duration, CreditAmount, age
 
-install.packages('labelled')
-library(labelled)
+Azure = FALSE
 
-# alterando nome das colunas
-colnames(df) =  c('StatusChecking', 'Duration', 'HistoryCredit', 'Purpose', 'CreditAmount', 'SavingAccount', 'EmploymentSince', 'InstallmentRate', 'PersonalStatus', 'Guarantor', 'ResidenceSince', 'Property', 'Age', 'InstallmentPlans', 'housing', 'CreditsAtBank', 'Job', 'maintenance', 'Phone', 'ForeignWorker', 'CreditStatus')
+if(Azure){
+  source("src/ClassTools.R")
+  Credit = maml.mapInputPort(1)
+}else{
+  source("src/ClassTools.R")
+  
+  # obtendo dataset e adicionando suas labels 
+  Credit = read.csv('German Credit Card UCI dataset.csv', stringsAsFactors = TRUE, header = FALSE )
+  
+ # install.packages('labelled')
+  #library(labelled)
+  
+  # alterando nome das colunas
+  colnames(Credit) =  c('StatusChecking', 'Duration', 'HistoryCredit', 'Purpose', 'CreditAmount', 'SavingAccount', 'EmploymentSince', 'InstallmentRate', 'PersonalStatus', 'Guarantor', 'ResidenceSince', 'Property', 'Age', 'InstallmentPlans', 'housing', 'CreditsAtBank', 'Job', 'maintenance', 'Phone', 'ForeignWorker', 'CreditStatus')
+  
+  #adicionando label as colunas
+  var_label(Credit) = c('StatusChecking', 'Duration', 'HistoryCredit', 'Purpose', 'CreditAmount', 'SavingAccount', 'EmploymentSince', 'InstallmentRate', 'PersonalStatus', 'Guarantor', 'ResidenceSince', 'Property', 'Age', 'InstallmentPlans', 'housing', 'CreditsAtBank', 'Job', 'maintenance', 'Phone', 'ForeignWorker', 'CreditStatus')
+  
+}
 
-#adicionando label as colunas
-var_label(df) = c('StatusChecking', 'Duration', 'HistoryCredit', 'Purpose', 'CreditAmount', 'SavingAccount', 'EmploymentSince', 'InstallmentRate', 'PersonalStatus', 'Guarantor', 'ResidenceSince', 'Property', 'Age', 'InstallmentPlans', 'housing', 'CreditsAtBank', 'Job', 'maintenance', 'Phone', 'ForeignWorker', 'CreditStatus')
+# transformando variaveis numéricas em variáveis categoricas
+toFactors = c("Duration","CreditAmount","Age")
+maxVals = c(100, 1000000, 100)
+fac_Names = unlist(lapply(toFactors, function(x) paste(x, "_f", sep="")))
+Credit[,fac_Names] = Map(function(x,y) quantize.num(Credit[, x], maxval = y), toFactors, maxVals)
 
-str(df)
-View(df)
-
+View(Credit)
