@@ -74,8 +74,8 @@ if(Azure) {
   maml.mapOutputPort('Credit')
 } 
 
-#######################
-#######################
+###############################################################################
+###############################################################################
 # Analise exploratória
 
 if(Azure){
@@ -99,10 +99,47 @@ lapply(colNames2, function(x){
 
 # Plot CreditStatus vs StatusChecking
 lapply(colNames2, function(x){
-  if(is.factor(Credit[,x]) & x != "StatusChecking") {
-    ggplot(Credit, aes(StatusChecking)) +
+  if(is.factor(Credit[,x]) & x != "CheckingAcctStat") {
+    ggplot(Credit, aes(CheckingAcctStat)) +
       geom_bar() +
       facet_grid(paste(x, " ~ CreditStatus")) +
-      ggtitle(paste("Total de Crédito bom/Ruim StatusChecking e ", x))
+      ggtitle(paste("Total de Crédito bom/Ruim CheckingAcctStat e ", x))
   }
 })
+
+###############################################################################
+###############################################################################
+# Seleção de variáveis
+
+if(Azure){
+  source("src/ClassTools.R")
+  Credit = maml.mapInputPort(1)
+}else{
+  source("src/ClassTools.R")
+}
+
+library(randomForest)
+modelo = randomForest(
+  CreditStatus ~ .
+  - Duration
+  - Age
+  - CreditAmount
+  - ForeignWorker
+  - NumberDependents
+  - Telephone
+  - ExistingCreditsAtBank
+  - PresentResidenceTime
+  - Job
+  - Housing
+  - SexAndStatus
+  - InstallmentRatePecnt
+  - OtherDetorsGuarantors
+  - Age_f
+  - OtherInstalments,
+  data = Credit,
+  ntree = 100, 
+  nodesize = 10, importance = T)
+
+varImpPlot(modelo)
+
+outFrame - serList(list(Credit.model = modelo))
