@@ -107,6 +107,16 @@ lapply(colNames2, function(x){
   }
 })
 
+# balanceando os dados
+# SMOTE: SMOTE algorithm for unbalanced classification problems
+
+#install.packages('smotefamily')
+library(smotefamily)
+
+str(Credit)
+?SMOTE
+result = SMOTE(X = Credit, target =  Credit['CreditStatus'], K = 2)
+CreditSmote = data.frame(Credit,result$data)
 ###############################################################################
 ###############################################################################
 # Seleção de variáveis
