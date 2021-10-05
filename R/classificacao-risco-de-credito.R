@@ -250,3 +250,48 @@ df_mat = data.frame(Category = c("Credito Ruim", "Credito bom"),
                     Precision_Wacc = c(Presicion(confusion_matrix), W_Accuracy(confusion_matrix)))
 
 print(df_mat)
+
+# Gerando curva ROC em R
+
+install.packages('ROCR')
+
+library(ROCR)
+
+class1 = predict(modelo, newdata = dados_test, type = 'prob')
+class2 = dados_test$CreditStatus
+
+pred = prediction(class1[,2], class2)
+perf = performance(pred,"tpr","fpr")
+plot(perf, col = rainbow(10))
+
+#Gerando confusion matrix com library caret
+library(caret)
+caret::confusionMatrix(as.factor(previsoes$observado), as.factor(previsoes$previsto))
+
+###############################################################################
+# Otimizando modelo
+
+cost_fun = matrix(c(0,1.5,1,0), nrow = 2,  dimnames = list(c("1","2"),c("1","2")))
+cost_fun
+
+# usando modelo randonforest ponderado
+# pacote c50 permite que atribua peso aos erros
+
+#install.packages('C50')
+library(C50)
+
+modelo2 = C5.0(CreditStatus ~ CheckingAcctStat
+                      + Purpose
+                      + CreditHistory 
+                      + SavingsBonds
+                      + Employment ,
+                      data = dados_treino,
+                      trials = 100, 
+                      cost = cost_fun)
+
+print(modelo2)
+
+# dados observados x previstos
+
+previsoes2 = data.frame(observado = dados_test$CreditStatus,
+                       previsto = predict(object = modelo2, newData = dados_test))
