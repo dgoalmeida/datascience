@@ -1,0 +1,1103 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Análise de sentimento - mini projeto},
+  pdfauthor={dgoalmeida - projeto do curso da DSA},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Análise de sentimento - mini projeto}
+\author{dgoalmeida - projeto do curso da DSA}
+\date{10 de Julho, 2018}
+
+\begin{document}
+\maketitle
+
+\% !TEX encoding = UTF-8 Unicode
+
+\hypertarget{estudo-sobre-as-ferramentas-de-analise-de-sentimento}{%
+\subsection{Estudo sobre as ferramentas de analise de
+sentimento}\label{estudo-sobre-as-ferramentas-de-analise-de-sentimento}}
+
+Este projeto tem como finalidade o estudo de análise de sentimentos no
+twitter. Ferramentas para coleta de dados, pré-processameno, data
+munging/wrangling, gráficos para visualização e análise do resultado
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#install.packages(\textquotesingle{}twitteR\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}tm\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}RColorBrewer\textquotesingle{})}
+\CommentTok{\#install.packages(\textquotesingle{}syuzhet\textquotesingle{})}
+
+\FunctionTok{library}\NormalTok{(twitteR)}
+\FunctionTok{library}\NormalTok{(tm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: NLP
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
+\FunctionTok{library}\NormalTok{(syuzhet)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'ggplot2'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:NLP':
+## 
+##     annotate
+\end{verbatim}
+
+\hypertarget{conexuxe3o-com-o-twitter}{%
+\subsection{Conexão com o twitter}\label{conexuxe3o-com-o-twitter}}
+
+configurando conexão com api do twitter configurando token de acesso
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{setup\_twitter\_oauth}\NormalTok{(consumer\_key, consumer\_secret, access\_token, access\_secret)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Using direct authentication"
+\end{verbatim}
+
+\hypertarget{buscando-por-dados-na-api-do-twitter}{%
+\subsection{Buscando por dados na api do
+twitter}\label{buscando-por-dados-na-api-do-twitter}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tw }\OtherTok{=}\NormalTok{ twitteR}\SpecialCharTok{::}\FunctionTok{searchTwitter}\NormalTok{(}\StringTok{\textquotesingle{}@pagseguro + conta + {-}filter:retweets\textquotesingle{}}\NormalTok{, }\AttributeTok{n=}\DecValTok{500}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in doRppAPICall("search/tweets", n, params = params, retryOnRateLimit =
+## retryOnRateLimit, : 500 tweets were requested but the API can only return 65
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{=}\NormalTok{ twitteR}\SpecialCharTok{::}\FunctionTok{twListToDF}\NormalTok{(tw)}
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                                                                                                           text
+## 1                                                              @pagseguro Venha abrir sua conta digitalhttps://agx.link/3Czgrlice do banco pan
+## 2                                                                  @pagseguro @zairoolima Qro saber o que falta pra desbloquear minha conta???
+## 3 @pagseguro App lixo...3 meses q minha conta foi bloqueado disseram q depois 3 meses eu ia poder acessar e até agora… https://t.co/4VPSGFtfa0
+## 4                                                                                       @pagseguro não tá aparecendo uma compra na minha conta
+## 5                                        @pagseguro Vcs estão com problema na rede, efetuei vendas e o dinheiro não caiu na minha conta ainda?
+## 6                      @pagseguro Eu quero meu dinheiro que ta a horas lá falando que vai liberar na conta. Meu plano de recebimento é na hora
+##   favorited favoriteCount replyToSN             created truncated
+## 1     FALSE             0 pagseguro 2021-10-05 04:20:20     FALSE
+## 2     FALSE             0 pagseguro 2021-10-04 22:55:58     FALSE
+## 3     FALSE             0 pagseguro 2021-10-04 22:54:26      TRUE
+## 4     FALSE             0 pagseguro 2021-10-04 22:09:21     FALSE
+## 5     FALSE             0 pagseguro 2021-10-04 21:44:33     FALSE
+## 6     FALSE             0 pagseguro 2021-10-04 19:58:11     FALSE
+##            replyToSID                  id replyToUID
+## 1 1407453342465507331 1445242428441628676   15087174
+## 2 1445138053694099456 1445160797638889472   15087174
+## 3 1445115286475218962 1445160410664013831   15087174
+## 4                <NA> 1445149065294106627   15087174
+## 5 1435747637903376386 1445142826451447814   15087174
+## 6 1445115286475218962 1445116054720634892   15087174
+##                                                                           statusSource
+## 1 <a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>
+## 2 <a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>
+## 3 <a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>
+## 4   <a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>
+## 5 <a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>
+## 6 <a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>
+##        screenName retweetCount isRetweet retweeted longitude latitude
+## 1 Larissa38914412            0     FALSE     FALSE        NA       NA
+## 2   pereira_siria            0     FALSE     FALSE        NA       NA
+## 3   pereira_siria            0     FALSE     FALSE        NA       NA
+## 4    dmarcansolla            0     FALSE     FALSE        NA       NA
+## 5 EdnaRod32144598            0     FALSE     FALSE        NA       NA
+## 6       Cadelicki            0     FALSE     FALSE        NA       NA
+\end{verbatim}
+
+\hypertarget{tratamento-dos-dados-coletados-atravuxe9s-de-text-mining}{%
+\subsection{Tratamento dos dados coletados através de text
+mining}\label{tratamento-dos-dados-coletados-atravuxe9s-de-text-mining}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#criando vetor com os dados retornados da pesquisa ao twitter}
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{Corpus}\NormalTok{(tm}\SpecialCharTok{::}\FunctionTok{VectorSource}\NormalTok{(df[,}\DecValTok{1}\NormalTok{]))}
+
+\CommentTok{\#Criando uma função para substituir caracrer po espaço}
+\NormalTok{toSpace }\OtherTok{\textless{}{-}}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{content\_transformer}\NormalTok{(}\ControlFlowTok{function}\NormalTok{ (x , pattern ) }\FunctionTok{gsub}\NormalTok{(pattern, }\StringTok{" "}\NormalTok{, x))}
+\CommentTok{\# alterando dados para menusculo}
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, tm}\SpecialCharTok{::}\FunctionTok{content\_transformer}\NormalTok{(tolower))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, tm::content_transformer(tolower)):
+## transformation drops documents
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# removendo caracteres especiais por espaço}
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, toSpace, }\StringTok{"/"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, toSpace, "/"): transformation drops
+## documents
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, toSpace, }\StringTok{"@"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, toSpace, "@"): transformation drops
+## documents
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, toSpace, }\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{|"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, toSpace, "\\|"): transformation drops
+## documents
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#removendo numeros}
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, tm}\SpecialCharTok{::}\NormalTok{removeNumbers)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, tm::removeNumbers): transformation
+## drops documents
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# removendo pontuação}
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, tm}\SpecialCharTok{::}\NormalTok{removePunctuation)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, tm::removePunctuation): transformation
+## drops documents
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# removendo stopwords }
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, tm}\SpecialCharTok{::}\NormalTok{removeWords, tm}\SpecialCharTok{::}\FunctionTok{stopwords}\NormalTok{(}\StringTok{\textquotesingle{}portuguese\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, tm::removeWords,
+## tm::stopwords("portuguese")): transformation drops documents
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# removendo espaço em branco}
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, tm}\SpecialCharTok{::}\NormalTok{stripWhitespace)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, tm::stripWhitespace): transformation
+## drops documents
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# removendo palavras que ficaram após executar o stopwords}
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, tm}\SpecialCharTok{::}\NormalTok{removeWords, }\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}pagseguro\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}pagbank\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}https\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}tco\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}...\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}vlrtffnvff\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}dlobmdpjex\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, tm::removeWords, c("pagseguro", :
+## transformation drops documents
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# efetuando a lemantização (alterar palavra para o seu radical simples )}
+\NormalTok{df\_corpus }\OtherTok{=}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{tm\_map}\NormalTok{(df\_corpus, tm}\SpecialCharTok{::}\NormalTok{stemDocument)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in tm_map.SimpleCorpus(df_corpus, tm::stemDocument): transformation
+## drops documents
+\end{verbatim}
+
+\hypertarget{anuxe1lize-exploratuxf3ria}{%
+\subsection{Análize exploratória}\label{anuxe1lize-exploratuxf3ria}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Build a term{-}document matrix}
+\NormalTok{df\_dtm }\OtherTok{\textless{}{-}}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{TermDocumentMatrix}\NormalTok{(df\_corpus)}
+\NormalTok{dtm\_m }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(df\_dtm)}
+\CommentTok{\# Sort by descearing value of frequency}
+\NormalTok{dtm\_v }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(}\FunctionTok{rowSums}\NormalTok{(dtm\_m),}\AttributeTok{decreasing=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{dtm\_d }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{word =} \FunctionTok{names}\NormalTok{(dtm\_v),}\AttributeTok{freq=}\NormalTok{dtm\_v)}
+\CommentTok{\# Display the top 5 most frequent words}
+\FunctionTok{tail}\NormalTok{(dtm\_d, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                word freq
+## confesso                   confesso    1
+## satisfeitasegunda satisfeitasegunda    1
+## svuppich                   svuppich    1
+## tard                           tard    1
+## virtual                     virtual    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Plot com as palavras mais frequentes}
+\FunctionTok{barplot}\NormalTok{(dtm\_d[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{freq, }\AttributeTok{las =} \DecValTok{2}\NormalTok{, }\AttributeTok{names.arg =}\NormalTok{ dtm\_d[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,]}\SpecialCharTok{$}\NormalTok{word,}
+        \AttributeTok{col =}\StringTok{"lightgreen"}\NormalTok{, }\AttributeTok{main =}\StringTok{"Palavras mais frequentes"}\NormalTok{,}
+        \AttributeTok{ylab =} \StringTok{"Frequencia"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '…' in 'mbcsToSbcs': dot substituted for <e2>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '…' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '…' in 'mbcsToSbcs': dot substituted for <a6>
+\end{verbatim}
+
+\includegraphics{analise-sentimento_files/figure-latex/analise-1.pdf}
+
+\hypertarget{anuxe1lize-exploratuxf3ria---nuvem-de-palavras}{%
+\subsection{Análize exploratória - Nuvem de
+palavras}\label{anuxe1lize-exploratuxf3ria---nuvem-de-palavras}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wordcloud}\SpecialCharTok{::}\FunctionTok{wordcloud}\NormalTok{(}\AttributeTok{words =}\NormalTok{ dtm\_d}\SpecialCharTok{$}\NormalTok{word, }\AttributeTok{freq =}\NormalTok{ dtm\_d}\SpecialCharTok{$}\NormalTok{freq, }\AttributeTok{min.freq =} \DecValTok{2}\NormalTok{,}
+          \AttributeTok{max.words=}\DecValTok{50}\NormalTok{, }\AttributeTok{random.order=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{rot.per=}\FloatTok{1.0}\NormalTok{, }
+          \AttributeTok{colors=}\FunctionTok{brewer.pal}\NormalTok{(}\DecValTok{8}\NormalTok{, }\StringTok{"Dark2"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on '…' in
+## 'mbcsToSbcs': dot substituted for <e2>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on '…' in
+## 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on '…' in
+## 'mbcsToSbcs': dot substituted for <a6>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
+## rotWord * : conversion failure on '…' in 'mbcsToSbcs': dot substituted for <e2>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
+## rotWord * : conversion failure on '…' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
+## rotWord * : conversion failure on '…' in 'mbcsToSbcs': dot substituted for <a6>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
+## rotWord * : font metrics unknown for Unicode character U+2026
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on
+## 'conta…' in 'mbcsToSbcs': dot substituted for <e2>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on
+## 'conta…' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in strwidth(words[i], cex = size[i], ...): conversion failure on
+## 'conta…' in 'mbcsToSbcs': dot substituted for <a6>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
+## rotWord * : conversion failure on 'conta…' in 'mbcsToSbcs': dot substituted for
+## <e2>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
+## rotWord * : conversion failure on 'conta…' in 'mbcsToSbcs': dot substituted for
+## <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
+## rotWord * : conversion failure on 'conta…' in 'mbcsToSbcs': dot substituted for
+## <a6>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x1, y1, words[i], cex = size[i], offset = 0, srt =
+## rotWord * : font metrics unknown for Unicode character U+2026
+\end{verbatim}
+
+\includegraphics{analise-sentimento_files/figure-latex/wordcloud-1.pdf}
+
+\hypertarget{anuxe1lise-exploratuxf3ria---verificando-correlauxe7uxe3o-entre-as-palavras}{%
+\subsection{Análise exploratória - verificando correlação entre as
+palavras}\label{anuxe1lise-exploratuxf3ria---verificando-correlauxe7uxe3o-entre-as-palavras}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Verificando associção de palavras}
+\CommentTok{\# verificando a correlação ente palavras}
+\NormalTok{tm}\SpecialCharTok{::}\FunctionTok{findAssocs}\NormalTok{(df\_dtm, }\AttributeTok{terms =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}pagseguro\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}acessar\textquotesingle{}}\NormalTok{), }\AttributeTok{corlimit =} \FloatTok{0.30}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $pagseguro
+## numeric(0)
+## 
+## $acessar
+##      agora… disserammes  mesesconta       poder    vpsgftfa    chateado 
+##        0.49        0.49        0.49        0.49        0.49        0.49 
+##   conseguir    rmunghvm  conseguiss     votaria      coloco     informa 
+##        0.49        0.49        0.49        0.49        0.49        0.49 
+##       login trabalhando     consigo         dia       abrir   bloqueado 
+##        0.49        0.49        0.47        0.38        0.33        0.33 
+##    tentando        poxa        site 
+##        0.33        0.33        0.33
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tm}\SpecialCharTok{::}\FunctionTok{findAssocs}\NormalTok{(df\_dtm, }\AttributeTok{terms =}\NormalTok{ tm}\SpecialCharTok{::}\FunctionTok{findFreqTerms}\NormalTok{(df\_dtm, }\AttributeTok{lowfreq =} \DecValTok{3}\NormalTok{), }\AttributeTok{corlimit =} \FloatTok{0.25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $banco
+##     agxlink    czgrlice digitalhttp       venha      alguma       aqui… 
+##        0.57        0.57        0.57        0.57        0.57        0.57 
+##    cvrtydao     frauded funcionapor      vazado    contanum       credo 
+##        0.57        0.57        0.57        0.57        0.57        0.57 
+##      fechei     inimigo   jxlvnpayk   recomendo       abrir        chat 
+##        0.57        0.57        0.57        0.57        0.39        0.39 
+##       forma 
+##        0.39 
+## 
+## $conta
+##   cancelar      deixa 🤬🤬🤬🤬🤬      achei   bloquear   ntbyfego      opção 
+##       0.31       0.31       0.31       0.31       0.31       0.31       0.31 
+##      perdi      porém 
+##       0.31       0.31 
+## 
+## $acessar
+##      agora… disserammes  mesesconta       poder    vpsgftfa    chateado 
+##        0.49        0.49        0.49        0.49        0.49        0.49 
+##   conseguir    rmunghvm  conseguiss     votaria      coloco     informa 
+##        0.49        0.49        0.49        0.49        0.49        0.49 
+##       login trabalhando       abrir   bloqueado    tentando        poxa 
+##        0.49        0.49        0.33        0.33        0.33        0.33 
+##        site 
+##        0.33 
+## 
+## $lixo
+##          agora…     disserammes      mesesconta           poder        vpsgftfa 
+##            0.57            0.57            0.57            0.57            0.57 
+##      edbzjelntl        invadida oeduardomoreira        contanum           credo 
+##            0.57            0.57            0.57            0.57            0.57 
+##          fechei         inimigo       jxlvnpayk       recomendo       bloqueado 
+##            0.57            0.57            0.57            0.57            0.39 
+## 
+## $compra
+##   aparecendo       comigo      contato       entrem        favor     fraudada 
+##         0.49         0.49         0.49         0.49         0.49         0.49 
+##   realizaram        saldo urgenteconta         alto  descontaram  estressando 
+##         0.49         0.49         0.49         0.49         0.49         0.49 
+##      nenhuma        valor     anovuqvb       paguei      recebeu         saiu 
+##         0.49         0.49         0.49         0.49         0.49         0.49 
+##        sexta     vendedor        ainda 
+##         0.49         0.49         0.33 
+## 
+## $dinheiro
+##           ainda            caiu      transferir         efetuei         falando 
+##            0.48            0.48            0.48            0.33            0.33 
+##            hora           plano recebimentohora          caindo             oqu 
+##            0.33            0.33            0.33            0.33            0.33 
+##        enfiando      maquininha         pegando           vária          contar 
+##            0.33            0.33            0.33            0.33            0.33 
+##       devolvido        ifhmaoxf         íntegra        coloquei     simplesment 
+##            0.33            0.33            0.33            0.33            0.33 
+##  atendentecapaz       indignada       segurança            some        anovuqvb 
+##            0.33            0.33            0.33            0.33            0.33 
+##          paguei         recebeu            saiu           sexta        vendedor 
+##            0.33            0.33            0.33            0.33            0.33 
+## 
+## $rede
+##     enganosa   propaganda       social      efetuei     internet   jdipclqpyu 
+##         0.70         0.70         0.70         0.49         0.49         0.49 
+##        cart…        googl       kkowfm       oferec     reclamei sociaisabrir 
+##         0.49         0.49         0.49         0.49         0.49         0.49 
+##       contém     diferent       lpvttp       pessoa     resolvem   respondido 
+##         0.49         0.49         0.49         0.49         0.49         0.49 
+##       semana         sete        única        ainda         caiu     problema 
+##         0.49         0.49         0.49         0.33         0.33         0.33 
+##         olha         aqui 
+##         0.33         0.33 
+## 
+## $venda
+##       caiu   enfiando maquininha    pegando      vária    efetuei      ainda 
+##       0.95       0.89       0.89       0.89       0.89       0.44       0.30 
+##   problema 
+##       0.30 
+## 
+## $quero
+##         falando            hora           plano recebimentohora        cancelar 
+##            0.43            0.43            0.43            0.43            0.43 
+##           deixa      🤬🤬🤬🤬🤬        internet      jdipclqpyu            cade 
+##            0.43            0.43            0.43            0.43            0.43 
+##        cashback      contaderam       jchoakkfa           pagar         pediram 
+##            0.43            0.43            0.43            0.43            0.43 
+##            reai           pedir           saber         liberar        enganosa 
+##            0.43            0.43            0.28            0.28            0.28 
+##            olha      propaganda          social        encerrar 
+##            0.28            0.28            0.28            0.28 
+## 
+## $ajuda
+##           caindo              oqu             cedo             desd 
+##             0.57             0.57             0.57             0.57 
+## ganharreclamação             logo          sistema           voltar 
+##             0.57             0.57             0.57             0.57 
+##  autoatendimento           eterno             fico          inativa 
+##             0.57             0.57             0.57             0.57 
+##             loop            tento        ueyayyxfn         tentando 
+##             0.57             0.57             0.57             0.39 
+##       transferir        funcionar           resolv             aqui 
+##             0.39             0.39             0.39             0.39 
+## 
+## $fazer
+##       tentando          posso         caindo            oqu        aceitam 
+##           0.51           0.51           0.36           0.36           0.36 
+##          botei          grana        militar          podem bancáriadébito 
+##           0.36           0.36           0.36           0.36           0.36 
+##          iphon      penamenor           qria          tanto             🥺 
+##           0.36           0.36           0.36           0.36           0.36 
+##     conseguiss        votaria          bacen      invadida…       primeira 
+##           0.36           0.36           0.36           0.36           0.36 
+##         página      zpjfwbeix          dizer     emergência      madrugada 
+##           0.36           0.36           0.36           0.36           0.36 
+##           quer             🤔 
+##           0.36           0.36 
+## 
+## $cbank
+##        acordo… bancocentralbr       dlrybcyk       falanext           itau 
+##           0.49           0.49           0.49           0.49           0.49 
+##        marcelo         nubank    reclameaqui      qfiklzzmp      nmheqsofd 
+##           0.49           0.49           0.49           0.49           0.49 
+##        izeivbi 
+##           0.49 
+## 
+## $ano
+##      nunca     ganhei      limit     nrlvno    pagando srsalvator     usand… 
+##       0.70       0.49       0.49       0.49       0.49       0.49       0.49 
+##   chateado  conseguir   rmunghvm       bela danjustino   gfcoizoh     grana… 
+##       0.49       0.49       0.49       0.49       0.49       0.49       0.49 
+##       quas      abrir   problema     nenhum       poxa      posso 
+##       0.49       0.33       0.33       0.33       0.33       0.33 
+## 
+## $usando
+##       ganhei        limit       nrlvno      pagando   srsalvator       usand… 
+##         0.57         0.57         0.57         0.57         0.57         0.57 
+##      aplicar        então    esperança         golp       hioubq       comigo 
+##         0.57         0.57         0.57         0.57         0.57         0.57 
+##      contato       entrem        favor     fraudada   realizaram        saldo 
+##         0.57         0.57         0.57         0.57         0.57         0.57 
+## urgenteconta       nenhum        nunca      bandido 
+##         0.57         0.39         0.39         0.39 
+## 
+## $agora
+##     aceitam       botei       grana     militar       podem    enfiando 
+##        0.57        0.57        0.57        0.57        0.57        0.57 
+##  maquininha     pegando       vária    coloquei simplesment        caiu 
+##        0.57        0.57        0.57        0.57        0.57        0.39 
+##  transferir      ajudar        poxa   funcionar 
+##        0.39        0.39        0.39        0.39 
+## 
+## $consigo
+##     aceitam       botei       grana     militar       podem  conseguiss 
+##        0.49        0.49        0.49        0.49        0.49        0.49 
+##     votaria      coloco     informa       login trabalhando  cadastrado 
+##        0.49        0.49        0.49        0.49        0.49        0.49 
+##   dzpdrodfl       site…    tentando      ajudar     preciso        site 
+##        0.49        0.49        0.33        0.33        0.33        0.33 
+##       email     alterar 
+##        0.33        0.33 
+## 
+## $dado
+##      alguma       aqui…    cvrtydao     frauded funcionapor      vazado 
+##        0.57        0.57        0.57        0.57        0.57        0.57 
+##        bela  danjustino    gfcoizoh      grana…        quas      coloco 
+##        0.57        0.57        0.57        0.57        0.57        0.57 
+##     informa       login trabalhando    problema       nunca        chat 
+##        0.57        0.57        0.57        0.39        0.39        0.39 
+##       forma        site 
+##        0.39        0.39 
+## 
+## $serviço
+##           abriu           acaba           lista        nsaogglh           onlin 
+##            0.57            0.57            0.57            0.57            0.57 
+##       pagamento            pior           steam         aplicar           então 
+##            0.57            0.57            0.57            0.57            0.57 
+##       esperança            golp          hioubq      edbzjelntl        invadida 
+##            0.57            0.57            0.57            0.57            0.57 
+## oeduardomoreira          entrar         parabén         bandido 
+##            0.57            0.39            0.39            0.39 
+## 
+## $dia
+##     bloqueou      dinhei… investimento   ssefwpmjkv        feito     chateado 
+##         0.81         0.81         0.81         0.81         0.56         0.39 
+##    conseguir     rmunghvm   conseguiss      votaria        abrir     tentando 
+##         0.39         0.39         0.39         0.39         0.26         0.26 
+##         poxa 
+##         0.26 
+## 
+## $estrangeiro
+## qfiklzzmp nmheqsofd   izeivbi 
+##      0.57      0.57      0.57 
+## 
+## $infelizment
+## qfiklzzmp nmheqsofd   izeivbi 
+##      0.57      0.57      0.57 
+## 
+## $pensar
+## qfiklzzmp nmheqsofd   izeivbi 
+##      0.57      0.57      0.57 
+## 
+## $residência
+## qfiklzzmp nmheqsofd   izeivbi 
+##      0.57      0.57      0.57 
+## 
+## $xenofobia
+## qfiklzzmp nmheqsofd   izeivbi 
+##      0.57      0.57      0.57 
+## 
+## $`…`
+##           bandido         qfiklzzmp         nmheqsofd           izeivbi 
+##              0.51              0.36              0.36              0.36 
+##           aplicar             então         esperança              golp 
+##              0.36              0.36              0.36              0.36 
+##            hioubq        edbzjelntl          invadida   oeduardomoreira 
+##              0.36              0.36              0.36              0.36 
+##         conduzido          enganado              erro           favorec 
+##              0.36              0.36              0.36              0.36 
+##             ibest        svgtnzbkzk             vario              abri 
+##              0.36              0.36              0.36              0.36 
+##          confesso satisfeitasegunda          svuppich              tard 
+##              0.36              0.36              0.36              0.36 
+##           virtual 
+##              0.36 
+## 
+## $ontem
+##      prazo     contar  devolvido   ifhmaoxf    íntegra    expirou restituirr 
+##       0.70       0.49       0.49       0.49       0.49       0.49       0.49 
+##    uwuyodg vergonhosa       cadê     passou  realizada    aprovou     bomfiz 
+##       0.49       0.49       0.49       0.49       0.49       0.49       0.49 
+##       noit       👉👈      forma     entend    precisa 
+##       0.49       0.49       0.33       0.33       0.33 
+## 
+## $acesso
+##       conseguiss          votaria             cedo             desd 
+##             0.57             0.57             0.57             0.57 
+## ganharreclamação             logo          sistema           voltar 
+##             0.57             0.57             0.57             0.57 
+##       cadastrado        dzpdrodfl            site…         tentando 
+##             0.57             0.57             0.57             0.39 
+##          preciso        funcionar            email          alterar 
+##             0.39             0.39             0.39             0.39 
+## 
+## $nada
+##        conseguiss           votaria          aparelho        aplicativo 
+##              0.57              0.57              0.57              0.57 
+##         documento             envio         informado          informar 
+##              0.57              0.57              0.57              0.57 
+##         meppuwqsk              abri          confesso satisfeitasegunda 
+##              0.57              0.57              0.57              0.57 
+##          svuppich              tard           virtual           liberar 
+##              0.57              0.57              0.57              0.39 
+##          tentando           preciso 
+##              0.39              0.39 
+## 
+## $cartão
+##      achei   bloquear   ntbyfego      opção      perdi      porém       caso 
+##       0.89       0.89       0.89       0.89       0.89       0.89       0.44 
+##   clonagem dupnzvgjrr      legal    padrão…   prometeu   resposta     ajudar 
+##       0.44       0.44       0.44       0.44       0.44       0.44       0.30 
+##       olha 
+##       0.30 
+## 
+## $sempr
+##      edbzjelntl        invadida oeduardomoreira        bytcijvg    coisaaaaaaaa 
+##            0.89            0.89            0.89            0.44            0.44 
+##         desisti           falam           mesma      reclamando        reclamar 
+##            0.44            0.44            0.44            0.44            0.44 
+## 
+## $transferência
+##         cadê       passou    realizada     alefrota fiuzapistola        frota 
+##         0.57         0.57         0.57         0.57         0.57         0.57 
+##        fuder    narrativa        tosca       vetmsj      começar    habilitar 
+##         0.57         0.57         0.57         0.57         0.57         0.57 
+##       migrar movimentação     prwoerix       queria       conta…      celular 
+##         0.57         0.57         0.57         0.57         0.39         0.39 
+##      alterar 
+##         0.39
+\end{verbatim}
+
+\hypertarget{anuxe1lise-de-sentimentos}{%
+\subsection{Análise de sentimentos}\label{anuxe1lise-de-sentimentos}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{result\_vector }\OtherTok{=} \FunctionTok{get\_sentiment}\NormalTok{(df, }\AttributeTok{language =} \StringTok{\textquotesingle{}Portuguese\textquotesingle{}}\NormalTok{)}
+
+\FunctionTok{head}\NormalTok{(result\_vector, }\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  0.25 -0.60  0.00  0.00  0.00 -0.10  0.00  0.00  0.00  0.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(result\_vector)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -0.6000 -0.0250  0.0000 -0.1031  0.0000  0.2500
+\end{verbatim}
+
+\hypertarget{classificando-emouxe7uxf5es}{%
+\subsection{Classificando emoções}\label{classificando-emouxe7uxf5es}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Classificando emoções {-} lista de palavras que estão associadas a emoções}
+\CommentTok{\# (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust)}
+\CommentTok{\# e sentimentos  (negative and positive).}
+\NormalTok{print\_sentiment }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(text)\{}
+  \FunctionTok{print}\NormalTok{(text)}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{get\_nrc\_sentiment}\NormalTok{(text, }\AttributeTok{language =} \StringTok{\textquotesingle{}portuguese\textquotesingle{}}\NormalTok{))}
+\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in}\NormalTok{ df[,}\DecValTok{1}\NormalTok{])\{}
+  \FunctionTok{print\_sentiment}\NormalTok{(x)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "@pagseguro Venha abrir sua conta digitalhttps://agx.link/3Czgrlice do banco pan"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     2        0        0
+## [1] "@pagseguro @zairoolima Qro saber o que falta pra desbloquear minha conta???"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            1       1    2   0       1        0     1        3        0
+## [1] "@pagseguro App lixo...3 meses q minha conta foi bloqueado disseram q depois 3 meses eu ia poder acessar e até agora… https://t.co/4VPSGFtfa0"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       3    0   0       1        0     1        4        0
+## [1] "@pagseguro não tá aparecendo uma compra na minha conta"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "@pagseguro Vcs estão com problema na rede, efetuei vendas e o dinheiro não caiu na minha conta ainda?"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            3       0    2   2       2        1     3        2        2
+## [1] "@pagseguro Eu quero meu dinheiro que ta a horas lá falando que vai liberar na conta. Meu plano de recebimento é na hora"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            3       0    1   2       0        1     3        0        2
+## [1] "@pagseguro me ajuda né eu tou tentando transferir dinheiro pra conta e não tá caindo oque fazer"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            2       0    1   2       0        1     3        0        3
+## [1] "@pagseguro eu só quero cancelar minha conta, me deixa cancelar minha conta!!!! 🤬🤬🤬🤬🤬"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            1       0    0   0       1        0     1        1        0
+## [1] "Vamo ver se o @pagseguro é uma conta rendeira mesmo"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "@Marcelo29536532 @C6Bank @itau @nubank @falanext @pagseguro @ReclameAQUI @BancoCentralBR Olá, Marcelo! De acordo co… https://t.co/DlRY7Bc8yk"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     2        0        2
+## [1] "@SrSalvatore0303 @pagseguro E eu que nunca ganhei limite nenhum, 2 anos usando o app, pagando conta pelo app, usand… https://t.co/5n9Rlv38No"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        1        0
+## [1] "@pagseguro Podem me ajudar? Botei minha grana na conta e agora não consigo fazer um pix pq não aceitam minha id militar!!"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    1   1       0        0     2        0        1
+## [1] "@pagseguro Foi levado em conta o bloqueio gerado no bilhete único após utilizar o @pagseguro como meio de recarga?… https://t.co/1CKmzrtiQp"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     1            0       0    1   0       1        0     1        1        0
+## [1] "@pagseguro Esse não e um banco,e uma fraude,de alguma forma tive meus dados vazados , o chat não funciona,por aqui… https://t.co/2CvRTy1DAO"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     1            0       0    0   0       0        0     1        1        1
+## [1] "@pagseguro parabéns, vc acaba de entrar para lista de um dos piores serviços de pagamento online. A Steam abriu uma… https://t.co/nSA0ogGlH9"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     0        1        0
+## [1] "@pagseguro JA NEM QUERO  MAIS ESSA CONTA DO PAGBANK\nA PROPAGANDA NA INTERNET OU REDE SOCIAL.E ENGANOSA..E OLHA QUE… https://t.co/jdIpClqPYU"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            1       0    0   0       0        0     1        1        0
+## [1] "@pagseguro PROPAGANDA ENGANOSA, JA RECLAMEI NO GOOGLE E NAS REDES SOCIAIS.ABRIR UMA CONTA E DEPOIS ME OFERECER CART… https://t.co/Kk04oWf24M"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        1        0
+## [1] "@pagseguro poxa estou há 3 dias sem conseguir abrir meu app e nem acessar minha conta. Chateado, depois de 5 anos t… https://t.co/rmuNG0hVM7"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     1            0       0    0   0       1        0     1        2        0
+## [1] "@pagseguro vocês estão pegando o dinheiro das vendas e enfiando no cu, fiz várias vendas pela maquininha e até agora não caiu na conta"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            2       0    1   2       1        1     3        1        2
+## [1] "@pagseguro Qria tanto fazer pra mim comprar um iPhone, pena q sou de menor, mais tenho conta bancária, mais é débito 🥺"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     1            0       1    1   0       3        0     1        3        0
+## [1] "@pagseguro Tenho 17 anos, posso fazer um conta ?"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "@C6Bank Infelizmente só dá para pensar na XENOFOBIA. Sou estrangeiro com residência há mais de 1 ano. Tenho MEI, co… https://t.co/QFIkLZz1mp"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    2   0       0        0     0        3        0
+## [1] "Olá @C6Bank Infelizmente só dá para pensar na XENOFOBIA. Sou estrangeiro com residência há mais de 1 ano. Tenho MEI… https://t.co/NMHEQso4fD"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    2   0       0        0     0        3        0
+## [1] "@pagseguro Contar com vocês? O dinheiro tinha prazo para ser devolvido na íntegra até o fim do dia de ontem! E dos… https://t.co/I3FH9MaoxF"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            2       0    1   2       0        1     2        0        2
+## [1] "@pagseguro Se eu conseguisse acessar minha conta até votaria. 2 dias tentando fazer o acesso e não consigo por nada. https://t.co/dLobMDPJeX"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       1        0     1        1        0
+## [1] "Prazo expirou ontem e, de forma vergonhosa, o @pagseguro entende que só precisa restituir R$ 1.23 dos mais de R$ 1.… https://t.co/uWu2yO1DGs"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     0        0        1
+## [1] "@pagseguro bom dia, eu perdi meu cartão da conta, porém não achei lá na minha conta, a opção de bloquear o cartão p… https://t.co/NtByf67eGO"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "@C6Bank Infelizmente só dá para pensar na XENOFOBIA. Sou estrangeiro com residência há mais de 1 ano. Tenho MEI, co… https://t.co/0izEI6VbI9"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    2   0       0        0     0        3        0
+## [1] "Parabéns @pagseguro por me fazer entrar na página do BACEN pela primeira vez, após eu ter minha conta invadida e pe… https://t.co/ZpjFWBE7Ix"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "@pagseguro  Usem meu código galerinha https://t.co/ruPmnsCA3w"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     0        0        0
+## [1] "Alô @pagseguro , tem bandido usando o serviço de vocês para aplicar golpe, então na esperança que vcs sejam uma emp… https://t.co/hio60UB8q1"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            0       1    2   0       1        1     0        3        0
+## [1] "@pagseguro Vcs sempre falam a mesma coisaaaaaaaa, eu já desisti, tô reclamando por reclamar mesmo, sei que vcs não… https://t.co/BYTci6j8Vg"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     0        0        0
+## [1] "@oEduardoMoreira @pagseguro @UOL UOL é um lixo... Sempre foi, sempre será... Tive uma conta invadida no serviço del… https://t.co/eDbzjElnTL"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       3    0   0       1        0     1        4        0
+## [1] "@danjustino @pagseguro @UOL Essa conta eu tenho há quase 7 anos. Nunca tinha me dado problema. Tenho uma bela grana… https://t.co/gF4cOi5ZoH"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    1   0       1        0     1        1        0
+## [1] "@pagseguro Cadê a minha transferência realizada ontem que não cai na minha conta??? Já passou das 24hs!!!"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "@pagseguro aplicativo do nada para a informar que preciso liberar o aparelho, envio os documentos e sou informado q… https://t.co/mepPU7wqsk"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       1        0     1        1        1
+## [1] "@pagseguro poxa, coloquei um dinheiro na conta e agora quando vou transferir o app simplesmente para de funcionar."
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            2       0    1   2       0        1     3        0        2
+## [1] "Já que o @pagseguro entende que só precisa devolver R$ 1.23 de mais de R$ 1.500 que saíram da minha conta, só me re… https://t.co/RAeIbWjS1j"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "Até hoje os caras do @pagseguro não deixam eu encerrar minha conta lá, tristê"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "Banco lixo esse @pagseguro em credo já fechei minha conta,num recomendo nem pro meu inimigo https://t.co/jXLVNpAYK0"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            0       4    2   0       1        0     2        6        0
+## [1] "@pagseguro Por favor entrem em contato comigo urgente⚠\ufe0f\nA minha conta foi fraudada, realizaram 4 compras usando meu saldo!!!!"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            2       0    1   1       0        2     2        1        2
+## [1] "Indignada com a falta de segurança do @pagseguro, como some dinheiro da conta e nenhum atendente é capaz de resolver isso"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     4            3       1    3   2       1        1     3        3        2
+## [1] "Quer dizer que se eu tiver uma emergência na madrugada eu não posso fazer um pix da minha conta é isso @pagseguro ? 🤔"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "@pagseguro pq ao adicionar 1 produto a+ na compra c/ 1 link feito no app d vcs,o frete duplica,se colocar 3 produto… https://t.co/hIYYcEZsvy"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     0        0        0
+## [1] "@pagseguro Vão ganhar é mais uma reclamação lá se esse sistema não voltar a funcionar logo. Desde cedo sem acesso à conta, me ajuda aí"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     2        1        3
+## [1] "@pagseguro não consigo acessar minha conta, quando coloco os dados de login, o site informa que estão trabalhando p… https://t.co/vLrTFfNVfF"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        1
+## [1] "@pagseguro NO SITE DOS SENHORES, PRINCIPALMENTE O CRIADOR O CHAT QUEM FÊZ É BURRO E IDIOTA IGUAL ALGUNS SENADORES D… https://t.co/uHaMHxmWB9"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            0       2    0   0       0        1     0        4        0
+## [1] "@Fiuza_Pistola Vai se fuder com suas narrativas toscas,  @alefrota77    @77_frota  . PIX é transferência de conta p… https://t.co/7vE7t4mSJE"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     1            0       0    1   0       0        0     1        2        1
+## [1] "Mais uma vez eu me estressando com a @pagseguro pq descontaram um valor (alto) na minha conta e eu não fiz compra nenhuma!!!"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        1        0
+## [1] "Conta na @pagseguro é muito bom,fiz ontem a noite e hj já aprovou 👉👈"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "100 dias que o @pagseguro bloqueou minha conta com um investimento feito por lá. 100 dias que estou sem esse dinhei… https://t.co/sseFWpmjkv"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        1        0
+## [1] "O @pagseguro não tem NADAde seguro! Invadiram minha conta e tentaram comprar um celular. Pra minha sorte eu vi e fu… https://t.co/9UxnjSLDEa"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            1       0    0   2       0        1     3        0        3
+## [1] "Contém aqui...\nEm uma semana fui respondido por sete pessoas diferentes em uma única rede social.\nNão resolvem!\nO… https://t.co/415LpVTT5P"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            1       0    0   0       0        0     0        0        0
+## [1] "@_bibimattos @pagseguro Baixa o app picpay ( empresas ) lá tu consegue vincular com a tua conta normal e por o nome fantasia."
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        1        0
+## [1] "Ow @pagseguro, me ajuda aqui! Tô com a conta inativa, tento resolver no autoatendimento e fico num looping eterno d… https://t.co/ueyAY6YXFn"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        2
+## [1] "@pagseguro So se for ibest em favorecer bandido. Fui enganado e conduzido ao erro pelos varios e-mails da pagseguro… https://t.co/SvGTNzbKzK"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            0       2    3   0       2        0     0        7        0
+## [1] "@pagseguro eu só queria alterar o celular e habilitar transferências para começar a migrar a movimentação da conta,… https://t.co/pr5WoEri5x"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     2        0        1
+## [1] "@pagseguro eu até faria isso se vocês não tivessem bloqueado a minha conta sem mais nem menos e não dão suporte nem… https://t.co/WxI8jLjh6s"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   1       0        0     2        1        1
+## [1] "@pagseguro quero saber cade meu cashback pq vcs pediram pra eu pagar conta e n me deram os 50 reais. pediram pra eu… https://t.co/j9ChOaKKFA"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            1       0    0   1       0        0     2        0        1
+## [1] "Eu só quero encerrar a minha conta @pagseguro, é pedir muito?"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "@pagseguro Preciso alterar o email (NÃO TENHO+ ACESSO!!!!) cadastrado na Minha Conta e não consigo nem via site, ne… https://t.co/dZpDrod5Fl"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        1
+## [1] "Olha só que legal!\n\nO @pagseguro prometeu me ajudar no caso da clonagem do meu cartão, e me deu a \"resposta padrão\"… https://t.co/DupnzVGjrR"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    1   1       1        0     3        1        4
+## [1] "dica do dia: não tenha uma conta no @pagseguro"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       0        0     1        0        0
+## [1] "@pagseguro fiz compra sexta paguei com pagbank o dinheiro já saiu da minha conta e o vendedor ainda não recebeu e f… https://t.co/aNOVU3qv2B"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     2            2       0    1   2       0        1     3        0        2
+## [1] "@pagseguro olá boa tarde, abri uma conta virtual pagbank e confesso não está nada satisfeita, já é a segunda vez qu… https://t.co/SVupp11ICH"
+##   anger anticipation disgust fear joy sadness surprise trust negative positive
+## 1     0            0       0    0   0       2        0     1        2        0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_sent }\OtherTok{=} \FunctionTok{get\_nrc\_sentiment}\NormalTok{(df[,}\DecValTok{1}\NormalTok{], }\AttributeTok{language =} \StringTok{\textquotesingle{}portuguese\textquotesingle{}}\NormalTok{)}
+\NormalTok{td }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{t}\NormalTok{ (df\_sent))}
+\NormalTok{td\_new }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{rowSums}\NormalTok{(td[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{50}\NormalTok{]))}
+\FunctionTok{names}\NormalTok{(td\_new)[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"count"}
+\NormalTok{td\_new }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\StringTok{"sentiment"} \OtherTok{=} \FunctionTok{rownames}\NormalTok{(td\_new), td\_new)}
+\FunctionTok{rownames}\NormalTok{(td\_new) }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\FunctionTok{str}\NormalTok{(df\_sent)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    65 obs. of  10 variables:
+##  $ anger       : num  0 2 0 0 2 2 2 0 0 0 ...
+##  $ anticipation: num  0 1 0 0 3 3 2 1 0 0 ...
+##  $ disgust     : num  0 1 3 0 0 0 0 0 0 0 ...
+##  $ fear        : num  0 2 0 0 2 1 1 0 0 0 ...
+##  $ joy         : num  0 0 0 0 2 2 2 0 0 0 ...
+##  $ sadness     : num  0 1 1 0 2 0 0 1 0 0 ...
+##  $ surprise    : num  0 0 0 0 1 1 1 0 0 0 ...
+##  $ trust       : num  2 1 1 1 3 3 3 1 1 2 ...
+##  $ negative    : num  0 3 4 0 2 0 0 1 0 0 ...
+##  $ positive    : num  0 0 0 0 2 2 3 0 0 2 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+
+\FunctionTok{quickplot}\NormalTok{(sentiment, }\AttributeTok{data=}\NormalTok{td\_new, }\AttributeTok{weight=}\NormalTok{count, }\AttributeTok{geom=}\StringTok{"bar"}\NormalTok{, }\AttributeTok{fill=}\NormalTok{sentiment, }\AttributeTok{ylab=}\StringTok{"count"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Pagseguro Conta sentiments"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{analise-sentimento_files/figure-latex/classification-1.pdf}
+
+\hypertarget{referencias}{%
+\section{Referencias:}\label{referencias}}
+
+\hypertarget{httpscran.r-project.orgwebpackagestwittertwitter.pdf}{%
+\section{\texorpdfstring{\url{https://cran.r-project.org/web/packages/twitteR/twitteR.pdf}}{https://cran.r-project.org/web/packages/twitteR/twitteR.pdf}}\label{httpscran.r-project.orgwebpackagestwittertwitter.pdf}}
+
+\hypertarget{httpsrstudio-pubs-static.s3.amazonaws.com132792_864e3813b0ec47cb95c7e1e2e2ad83e7.html}{%
+\section{\texorpdfstring{\url{https://rstudio-pubs-static.s3.amazonaws.com/132792_864e3813b0ec47cb95c7e1e2e2ad83e7.html}}{https://rstudio-pubs-static.s3.amazonaws.com/132792\_864e3813b0ec47cb95c7e1e2e2ad83e7.html}}\label{httpsrstudio-pubs-static.s3.amazonaws.com132792_864e3813b0ec47cb95c7e1e2e2ad83e7.html}}
+
+\hypertarget{httpswww.red-gate.comsimple-talkdatabasessql-serverbi-sql-servertext-mining-and-sentiment-analysis-with-r}{%
+\section{\texorpdfstring{\url{https://www.red-gate.com/simple-talk/databases/sql-server/bi-sql-server/text-mining-and-sentiment-analysis-with-r/}}{https://www.red-gate.com/simple-talk/databases/sql-server/bi-sql-server/text-mining-and-sentiment-analysis-with-r/}}\label{httpswww.red-gate.comsimple-talkdatabasessql-serverbi-sql-servertext-mining-and-sentiment-analysis-with-r}}
+
+\hypertarget{httpwww.labape.com.brrprimidstext_mining.html}{%
+\section{\texorpdfstring{\url{http://www.labape.com.br/rprimi/ds/text_mining.html}}{http://www.labape.com.br/rprimi/ds/text\_mining.html}}\label{httpwww.labape.com.brrprimidstext_mining.html}}
+
+\end{document}
