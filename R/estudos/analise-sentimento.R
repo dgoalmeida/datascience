@@ -80,6 +80,9 @@ result_vector = get_sentiment(df, language = 'Portuguese')
 head(result_vector, 10)
 summary(result_vector)
 
+# Classificando emoções - lista de palavras que estão associadas a emoções
+# (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust)
+# e sentimentos  (negative and positive).
 print_sentiment = function(text){
   print(text)
   print(get_nrc_sentiment(text, language = 'portuguese'))
@@ -90,8 +93,6 @@ for (x in df[,1]){
 }
 
 df_sent = get_nrc_sentiment(df[,1], language = 'portuguese')
-
-
 td = data.frame(t (df_sent))
 td_new <- data.frame(rowSums(td[2:50]))
 names(td_new)[1] <- "count"
@@ -103,7 +104,6 @@ library(ggplot2)
 
 ?barplot(count ~ sentiment,  data = td_new)
 quickplot(sentiment, data=td_new, weight=count, geom="bar", fill=sentiment, ylab="count")+ggtitle("Pagseguro Conta sentiments")
-
 
 ###############################################################################
 # Referencias:
