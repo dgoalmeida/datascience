@@ -28,6 +28,8 @@ df_corpus = tm::tm_map(df_corpus, tm::content_transformer(tolower))
 df_corpus = tm::tm_map(df_corpus, toSpace, "/")
 df_corpus = tm::tm_map(df_corpus, toSpace, "@")
 df_corpus = tm::tm_map(df_corpus, toSpace, "\\|")
+df_corpus <- iconv(df_corpus, to = "utf-8", sub="")
+
 #removendo numeros
 df_corpus = tm::tm_map(df_corpus, tm::removeNumbers)
 # removendo pontuação
@@ -111,3 +113,5 @@ quickplot(sentiment, data=td_new, weight=count, geom="bar", fill=sentiment, ylab
 # https://rstudio-pubs-static.s3.amazonaws.com/132792_864e3813b0ec47cb95c7e1e2e2ad83e7.html
 # https://www.red-gate.com/simple-talk/databases/sql-server/bi-sql-server/text-mining-and-sentiment-analysis-with-r/
 # http://www.labape.com.br/rprimi/ds/text_mining.html
+
+tinytex::install_tinytex()

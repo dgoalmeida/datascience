@@ -1,6 +1,7 @@
 ---
 output:
-  pdf_document: default
+     pdf_document: 
+         latex_engine: xelatex
 ---
 % !TEX encoding = UTF-8 Unicode
 
@@ -56,7 +57,34 @@ setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 ```{r busca}
 tw = twitteR::searchTwitter('@pagseguro + conta + -filter:retweets', n=500)
 df = twitteR::twListToDF(tw)
-head(df)
+head(df[,1])
+```
+
+# Limpa tweets
+```{r clean}
+
+# Function para limpeza dos tweets
+limpaTweets <- function(tweet){
+  # Remove http links
+  tweet = gsub("(f|ht)(tp)(s?)(://)(.*)[.|/](.*)", " ", tweet)
+  tweet = gsub("http\\w+", "", tweet)
+  # Remove retweets
+  tweet = gsub("(RT|via)((?:\\b\\W*@\\w+)+)", " ", tweet)
+  # Remove “#Hashtag”
+  tweet = gsub("#\\w+", " ", tweet)
+  # Remove nomes de usuarios “@people”
+  tweet = gsub("@\\w+", " ", tweet)
+  # Remove pontuacão
+  tweet = gsub("[[:punct:]]", " ", tweet)
+  # Remove os números
+  tweet = gsub("[[:digit:]]", " ", tweet)
+  # Remove espacos desnecessários
+  tweet = gsub("[ \t]{2,}", " ", tweet)
+  tweet = gsub("^\\s+|\\s+$", "", tweet)
+  # Convertendo encoding de caracteres e convertendo para letra minúscula
+  tweet <- stringi::stri_trans_general(tweet, "latin-ascii")
+  tweet <- iconv(tweet, from = "UTF-8", to = "ASCII")
+}
 ```
 
 ## Tratamento dos dados coletados através de text mining
@@ -64,7 +92,8 @@ head(df)
 
 ``` {r tratamento}
 #criando vetor com os dados retornados da pesquisa ao twitter
-df_corpus = tm::Corpus(tm::VectorSource(df[,1]))
+df_clean <- limpaTweets(df[,1])
+df_corpus = tm::Corpus(tm::VectorSource(df_clean))
 
 #Criando uma função para substituir caracrer po espaço
 toSpace <- tm::content_transformer(function (x , pattern ) gsub(pattern, " ", x))
@@ -74,6 +103,7 @@ df_corpus = tm::tm_map(df_corpus, tm::content_transformer(tolower))
 df_corpus = tm::tm_map(df_corpus, toSpace, "/")
 df_corpus = tm::tm_map(df_corpus, toSpace, "@")
 df_corpus = tm::tm_map(df_corpus, toSpace, "\\|")
+
 #removendo numeros
 df_corpus = tm::tm_map(df_corpus, tm::removeNumbers)
 # removendo pontuação
@@ -169,3 +199,6 @@ quickplot(sentiment, data=td_new, weight=count, geom="bar", fill=sentiment, ylab
 # https://rstudio-pubs-static.s3.amazonaws.com/132792_864e3813b0ec47cb95c7e1e2e2ad83e7.html
 # https://www.red-gate.com/simple-talk/databases/sql-server/bi-sql-server/text-mining-and-sentiment-analysis-with-r/
 # http://www.labape.com.br/rprimi/ds/text_mining.html
+
+Curso:
+https://www.datascienceacademy.com.br
