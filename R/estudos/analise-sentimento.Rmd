@@ -40,10 +40,10 @@ configurando conexão com api do twitter
 configurando token de acesso
 
 ```{r, echo=FALSE}
-consumer_key <- ""
-consumer_secret <- ""
-access_token <- ""
-access_secret <- ""
+consumer_key <- "XfXKETcXGRtpAFljEdJgkPzKw"
+consumer_secret <- "OgizRNUb3w3wCM6muMWm5TuK4KtYkIyrKkV909qrKwto8y5UtU"
+access_token <- "27475018-ukDcwT7zHpMkCA0sSABqWUmVPRIrxGIaNZ6ewO0U6"
+access_secret <- "Y9oGpEpHHQIUMT3giKiqIHPxxvHajGU0QJxqrXgHZjSvG"
 ```
 
 
@@ -136,7 +136,7 @@ barplot(dtm_d[1:5,]$freq, las = 2, names.arg = dtm_d[1:5,]$word,
         ylab = "Frequencia")
 ```
 
-## Análize exploratória - Nuvem de palavras
+## Análise exploratória - Nuvem de palavras
 
 ```{r wordcloud}
 wordcloud::wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 2,
@@ -147,7 +147,7 @@ wordcloud::wordcloud(words = dtm_d$word, freq = dtm_d$freq, min.freq = 2,
 ## Análise exploratória - verificando correlação entre as palavras
 
 ```{r correlation}
-#Verificando associção de palavras
+#Verificando assoacição de palavras
 # verificando a correlação ente palavras
 tm::findAssocs(df_dtm, terms = c('pagseguro', 'acessar'), corlimit = 0.30)
 
