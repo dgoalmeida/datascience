@@ -1,48 +1,76 @@
+---
+output:
+     pdf_document: 
+         latex_engine: xelatex
+---
+% !TEX encoding = UTF-8 Unicode
 
-setwd("Documents/datascience/data/")
+---
+title: "Analise-Risco-Credito"
+author: "dgoalmeida - projeto do curso da DSA"
+date: "2021-10-08"
+output: pdf_document
+---
 
-# Objetivo desse mini projeto é avaliar o risco de concessão de credito a clientes em uma instituição financeira
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-# Obtendo os dados que serão analisados.
+## Estudo sobre classificação para análise de risco de credito
+
+Objetivo desse mini projeto é avaliar o risco de concessão de credito a clientes em uma instituição financeira
+
+
+```{r pacotes}
+library(ggplot2)
+library(randomForest)
+library(stringr)
+library(e1071)
+library(caret)
+
+```
+
+##  Obtendo os dados que serão analisados.
+
+```{r dados}
 credit_df = read.csv('credit_dataset.csv')
 head(credit_df)
 
-
 str(credit_df)
 summary(credit_df)
+```
 
+## Analise dos dados
 # Analisando dataset
 
-#credit_df$credit.rating                  # avaliação de credito (variavel target)
-#credit_df$account.balance                # possui saldo
-#credit_df$credit.duration.months         # meses do emprestimo (duração)
-#credit_df$previous.credit.payment.status # status do pagamento anterior
-#credit_df$credit.purpose                 # propósito do credito
-#credit_df$credit.amount                  # valor do credito
-#credit_df$savings                        # ?
-# credit_df$employment.duration           # tempo empregado
-#credit_df$installment.rate               # taxa de parcelamento
-#credit_df$marital.status                 # estqado civil
-#credit_df$guarantor                      # possui fiador
-#credit_df$residence.duration             # tempo na mesma residencia
-#credit_df$current.assets                 # quantidade ativos correntes
-#credit_df$age                            # idade
-#credit_df$other.credits                  # possui outros creditos 
-#credit_df$apartment.type                 # tipo de apartamento
-#credit_df$bank.credits                   # possui credito no banco
-#credit_df$occupation                     # tipo  de ocupação (trabalho)
-#credit_df$dependents                     # quantidade dependentes
-#credit_df$telephone                      # possui telefone
-#credit_df$foreign.worker                 # trabalha fora
+credit_df$credit.rating                   avaliação de credito (variavel target)
+credit_df$account.balance                 possui saldo
+credit_df$credit.duration.months          meses do emprestimo (duração)
+credit_df$previous.credit.payment.status  status do pagamento anterior
+credit_df$credit.purpose                  propósito do credito
+credit_df$credit.amount                   valor do credito
+credit_df$savings                         ?
+credit_df$employment.duration             tempo empregado
+credit_df$installment.rate                taxa de parcelamento
+credit_df$marital.status                  estqado civil
+credit_df$guarantor                       possui fiador
+credit_df$residence.duration              tempo na mesma residencia
+credit_df$current.assets                  quantidade ativos correntes
+credit_df$age                             idade
+credit_df$other.credits                   possui outros creditos 
+credit_df$apartment.type                  tipo de apartamento
+credit_df$bank.credits                    possui credito no banco
+credit_df$occupation                      tipo  de ocupação (trabalho)
+credit_df$dependents                      quantidade dependentes
+credit_df$telephone                       possui telefone
+credit_df$foreign.worker                  trabalha fora
 
-###############################################################################
 # Análise exploratória dos dados
+
+```{r exploring}
 
 #verificando se possuem dados NA
 any(is.na(credit_df))
-
-#criando um grafico para verificar a relação das variáveis com a variavel target
-library(ggplot2)
 
 # executando a função lapply  que recebe um vetor com o nome das features e  uma função  para plotar um grafico
 lapply(colnames(credit_df), function(x){
@@ -55,26 +83,28 @@ lapply(colnames(credit_df), function(x){
 
 # criando um grafico de correlação
 corrplot::corrplot(cor(credit_df))
+```
+
+```{r pre-processing}
 
 # convertendo a variavel target em fator (como vou usar algoritmos de suport vector machine, ele precisa que o t
 #target seja  um fator para executar como modelo de classificação)
 credit_df$credit.rating = as.factor(credit_df$credit.rating)
 
-###############################################################################
 #Normalizando dados que estão com escala diferente
-
 credit_df$credit.duration.months = scale(credit_df$credit.duration.months, center = T, scale = T)
 credit_df$age = scale(credit_df$age, center = T, scale = T)
 credit_df$credit.amount = scale(credit_df$credit.amount, center = T, scale = T)
+```
 
-###############################################################################
-# efetuando seleção de variaveis. verifica quais são mais importantes para o modelo
+## efetuando seleção de variaveis. verifica quais são mais importantes para o modelo
 
-# usar randomForest para verogicar variaveis mais relevantes
-# definindo numero de arvores igual a 100
-#definindo tamanho dos nos = 10 
-# definindo importance = TRUE para retornar grau de importancia de uma variavel
-library(randomForest)
+ usar randomForest para verogicar variaveis mais relevantes
+ definindo numero de arvores igual a 100
+ definindo tamanho dos nos = 10 
+ definindo importance = TRUE para retornar grau de importancia de uma variavel
+
+```{r feature selection}
 modelo = randomForest(
   credit.rating ~ .,
   data = credit_df,
@@ -89,8 +119,9 @@ row_names = rownames(importance[importance$MeanDecreaseAccuracy >= mean(importan
 library(stringr)
 
 formula_ = as.formula(paste('credit.rating ~',str_c(row_names, collapse = ' + ')))
+```
 
-
+```{r split-data}
 # função para gerar dados de treino e de test
 splitData = function(dataframe, seed = NULL){
   if(!is.null(seed)) set.seed(seed)
@@ -107,11 +138,11 @@ split = splitData(credit_df, seed = 808)
 #separando dados
 dados_treino = split$trainset
 dados_test = split$testset
+```
 
-###############################################################################
+```{r classification-svm}
+
 # Usando modelo de classificação SVM
-
-library(e1071)
 svm_model = svm(formula_, data = dados_treino)
 
 ###############################################################################
@@ -127,18 +158,14 @@ round(prop.table(table(dados_test$credit.rating, pred)
 mean(pred == dados_test$credit.rating)
 
 #Gerando confusion matrix com library caret
-library(caret)
 caret::confusionMatrix(as.factor(dados_test$credit.rating), as.factor(pred))
 
+```
 
-###############################################################################
+```{r classification-random-forest}
 # Usando modelo de classificação randonforest
-library(randomForest)
-
 modelo_r_forest = randomForest(formula_, data = dados_treino)
 
-
-###############################################################################
 # Treinando modelo
 pred_forest = predict(modelo_r_forest, newdata = dados_test)
 
@@ -154,3 +181,5 @@ mean(pred_forest == dados_test$credit.rating)
 #Gerando confusion matrix com library caret
 #library(caret)
 caret::confusionMatrix(as.factor(dados_test$credit.rating), as.factor(pred_forest))
+
+```
