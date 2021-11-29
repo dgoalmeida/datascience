@@ -1,1 +1,8 @@
- 
+Problema de negócio:
+Identificar o nivel de clientes insatisfeitos no inicio do relacionamento
+Trabalho é um problema de classificação para identificar se cliente deixou ou não deixou de ser cliente do banco
+
+Dados estão no kaggle
+https://www.kaggle.com/c/santander-customer-satisfaction
+
+Projeto referente a Formação Cientista de Dados da Data Science Academy.
